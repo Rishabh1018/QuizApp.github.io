@@ -138,6 +138,49 @@ function showQuestion() {
     });
 };
 
+function showResult() {
+    quizScreen.classList.remove("active");
+    resultScreen.classList.add("active");
+    finalScoreSpan.textContent = score;
+    // Show a message based on score
+    if (score === quizQuestion.length) {
+        resultMessage.textContent = "Excellent! You got all questions right!";
+    } else if (score > quizQuestion.length / 2) {
+        resultMessage.textContent = "Good job! You scored above average.";
+    } else {
+        resultMessage.textContent = "Keep practicing! You can do better.";
+    }
+}
+
+function selectAnswer(event) {
+    if (answersDisabled) return
+    answersDisabled = true;
+    const selectedButton = event.target;
+    const isCorrect = selectedButton.dataset.correct === "true";
+
+    Array.from(answersContainer.children).forEach((button) => {
+        if (button.dataset.correct === "true") {
+            button.classList.add("correct")
+        } else if (button === selectedButton) {
+            button.classList.add("incorrect")
+        }
+    })
+
+    if (isCorrect) {
+        score++; ScoreSpan.textContent = score;
+    }
+
+    setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizQuestion.length) {
+            showQuestion()
+        } else {
+            showResult()
+        }
+    }, 1000)
+
+}
+
 function restartQuiz() {
     console.log("quiz ended")
 }
