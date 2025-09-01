@@ -142,7 +142,6 @@ function showResult() {
     quizScreen.classList.remove("active");
     resultScreen.classList.add("active");
     finalScoreSpan.textContent = score;
-    // Show a message based on score
     if (score === quizQuestion.length) {
         resultMessage.textContent = "Excellent! You got all questions right!";
     } else if (score > quizQuestion.length / 2) {
